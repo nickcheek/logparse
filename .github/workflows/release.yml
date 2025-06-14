@@ -1,0 +1,23 @@
+name: Release
+on:
+  push:
+    tags: ['v*']
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+    - name: Build binaries
+      run: |
+        GOOS=darwin GOARCH=amd64 go build -o logparse-darwin-amd64 parse.go
+        GOOS=darwin GOARCH=arm64 go build -o logparse-darwin-arm64 parse.go
+        GOOS=linux GOARCH=amd64 go build -o logparse-linux-amd64 parse.go
+        GOOS=windows GOARCH=amd64 go build -o logparse-windows-amd64.exe parse.go
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          logparse-*
