@@ -15,7 +15,7 @@ A powerful CLI tool for analyzing Laravel application logs with advanced filteri
 ## Installation
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/nickcheek/logparse.git
 cd laravel-log-parser
 go build -o parse
 ```
